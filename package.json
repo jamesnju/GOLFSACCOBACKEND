@@ -4,8 +4,7 @@
   "description": "Greenlinks Sacco Backend API",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
-    "vercel-build": "pnpm run build",
+    "build": "prisma generate && tsc",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "prisma:generate": "prisma generate",
