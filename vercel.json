@@ -11,7 +11,10 @@
       "dest": "dist/server.js"
     }
   ],
-  "buildCommand": "pnpm run build",
+  "buildCommand": "prisma generate && pnpm run build",
   "outputDirectory": "dist",
-  "installCommand": "pnpm install --no-frozen-lockfile"
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
