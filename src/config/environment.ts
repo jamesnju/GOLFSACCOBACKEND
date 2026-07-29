@@ -18,7 +18,7 @@ const envSchema = z.object({
   MPESA_ENVIRONMENT: z.enum(['sandbox', 'production']).default('sandbox'),
   MPESA_CALLBACK_URL: z.string().url().optional(),
   FRONTEND_URL: z.string().url().default('http://localhost:3000'),
-  ALLOWED_ORIGINS: z.string().default('http://localhost:3000'),
+  ALLOWED_ORIGINS: z.string().default('http://localhost:3000,https://greenlinksaccobackend.vercel.app'),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.string().optional(),

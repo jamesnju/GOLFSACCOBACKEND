@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { Prisma } from '@prisma/client';
-import { logger } from '../utils/logger';
 import { ResponseHandler } from '../utils/response';
 import { ZodError } from 'zod';
 
@@ -10,7 +9,6 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  logger.error('Error:', error);
 
   // Prisma errors
   if (error instanceof Prisma.PrismaClientKnownRequestError) {

@@ -1,3 +1,11 @@
+// src/shared/utils/logger.ts
+export default {
+  info: (...args: any[]) => console.log('[INFO]', ...args),
+  error: (...args: any[]) => console.error('[ERROR]', ...args),
+  warn: (...args: any[]) => console.warn('[WARN]', ...args),
+  debug: (...args: any[]) => console.debug('[DEBUG]', ...args)
+};
+
 // import winston from 'winston';
 
 // const isVercel = process.env.VERCEL === '1' || process.env.NODE_ENV === 'production';
