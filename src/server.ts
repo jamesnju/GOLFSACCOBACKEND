@@ -3,13 +3,13 @@ import { env } from './config/environment';
 import { logger } from './shared/utils/logger';
 import { prisma } from './config/database';
 
-// Export app for Vercel
+// ✅ CRITICAL: Export app for Vercel serverless environment
 export default app;
 
-// Only start server if not in Vercel
+// Only start server if NOT in Vercel (local development)
 if (process.env.VERCEL !== 'true') {
   const PORT = env.PORT || 5000;
-  
+
   async function startServer() {
     try {
       // Connect to database
