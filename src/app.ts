@@ -5,7 +5,6 @@ import compression from 'compression';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import { env } from './config/environment';
-import { logger } from './shared/utils/logger';
 import { errorHandler } from './shared/middlewares/error.middleware';
 
 // Import routes
@@ -15,6 +14,7 @@ import transactionRoutes from './modules/transactions/transactions.routes';
 import loanRoutes from './modules/loans/loans.routes';
 import paymentRoutes from './modules/payments/payments.routes';
 import adminRoutes from './modules/admin/admin.routes';
+import logger from './shared/utils/logger';
 
 // ✅ Explicitly typed as Express
 const app: Express = express();

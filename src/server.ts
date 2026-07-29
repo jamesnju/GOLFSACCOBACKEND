@@ -1,6 +1,5 @@
 import app from './app';
 import { env } from './config/environment';
-import { logger } from './shared/utils/logger';
 import { prisma } from './config/database';
 
 // ✅ CRITICAL: Export app for Vercel serverless environment
@@ -14,17 +13,17 @@ if (process.env.VERCEL !== 'true') {
     try {
       // Connect to database
       await prisma.$connect();
-      logger.info('✅ Database connected successfully');
+      //logger.info('✅ Database connected successfully');
 
       // Start the server
       app.listen(PORT, () => {
-        logger.info(`🚀 Server running on http://localhost:${PORT}`);
-        logger.info(`📚 API Version: ${env.API_VERSION || 'v1'}`);
-        logger.info(`🌍 Environment: ${env.NODE_ENV}`);
-        logger.info(`📍 Mode: Local Development`);
+        //logger.info(`🚀 Server running on http://localhost:${PORT}`);
+        //logger.info(`📚 API Version: ${env.API_VERSION || 'v1'}`);
+        //logger.info(`🌍 Environment: ${env.NODE_ENV}`);
+       // logger.info(`📍 Mode: Local Development`);
       });
     } catch (error) {
-      logger.error('❌ Failed to start server:', error);
+      //logger.error('❌ Failed to start server:', error);
       process.exit(1);
     }
   }
@@ -32,9 +31,9 @@ if (process.env.VERCEL !== 'true') {
   startServer();
 } else {
   // Vercel environment - just log that we're in serverless mode
-  logger.info('🌐 Running in Vercel serverless environment');
-  logger.info(`📚 API Version: ${env.API_VERSION || 'v1'}`);
-  logger.info(`🌍 Environment: ${env.NODE_ENV}`);
+  // logger.info('🌐 Running in Vercel serverless environment');
+  // logger.info(`📚 API Version: ${env.API_VERSION || 'v1'}`);
+  // logger.info(`🌍 Environment: ${env.NODE_ENV}`);
 }
 
 // import app from './app';
