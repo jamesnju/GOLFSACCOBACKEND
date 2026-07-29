@@ -14,7 +14,6 @@ import transactionRoutes from './modules/transactions/transactions.routes';
 import loanRoutes from './modules/loans/loans.routes';
 import paymentRoutes from './modules/payments/payments.routes';
 import adminRoutes from './modules/admin/admin.routes';
-import logger from './shared/utils/logger';
 
 // ✅ Explicitly typed as Express
 const app: Express = express();
@@ -39,13 +38,13 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Logging
-app.use(
-  morgan('combined', {
-    stream: {
-      write: (message: string) => logger.info(message.trim()),
-    },
-  })
-);
+// app.use(
+//   morgan('combined', {
+//     stream: {
+//       write: (message: string) => logger.info(message.trim()),
+//     },
+//   })
+// );
 
 // Rate Limiting
 const limiter = rateLimit({
