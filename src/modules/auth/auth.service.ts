@@ -31,10 +31,10 @@ export class AuthService {
         firstName: data.firstName,
         lastName: data.lastName,
         role: data.role as UserRole,
-        // isActive: false, // Not active until registration fee is paid
-        // registrationFeePaid: false,
-        isActive: true, // Not active until registration fee is paid
-        registrationFeePaid: true,
+        isActive: false, // Not active until registration fee is paid
+        registrationFeePaid: false,
+        
+        
         joinDate: new Date(),
         wallet: {
           create: {
@@ -80,11 +80,11 @@ export class AuthService {
     }
 
     // Check if user is active
-    // if (!user.isActive) {
-    //   throw new Error(
-    //     "Account not activated. Please pay the registration fee.",
-    //   );
-    // }
+   if (!user.isActive) {
+      throw new Error(
+       "Account not activated. Please pay the registration fee.",
+      );
+    }
 
     // Verify password
     const isPasswordValid = await HashService.comparePassword(
