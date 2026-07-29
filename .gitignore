@@ -131,3 +131,4 @@ temp/
 config.local.json
 config.*.local.json
 *.config.local.*
+.vercel
