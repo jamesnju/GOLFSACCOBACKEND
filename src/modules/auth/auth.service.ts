@@ -1,25 +1,22 @@
-import { prisma } from '../../config/database';
-import { HashService } from '../../shared/utils/hash';
-import { JwtService } from '../../shared/utils/jwt';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-import { UserRole } from '../../shared/enums/roles.enum';
-import { Prisma } from '@prisma/client';
+import { prisma } from "../../config/database";
+import { HashService } from "../../shared/utils/hash";
+import { JwtService } from "../../shared/utils/jwt";
+import { RegisterDto } from "./dto/register.dto";
+import { LoginDto } from "./dto/login.dto";
+import { UserRole } from "../../shared/enums/roles.enum";
+import { Prisma } from "@prisma/client";
 
 export class AuthService {
   static async register(data: RegisterDto) {
     // Check if user exists
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [
-          { email: data.email },
-          { phone: data.phone }
-        ]
-      }
+        OR: [{ email: data.email }, { phone: data.phone }],
+      },
     });
 
     if (existingUser) {
-      throw new Error('User with this email or phone already exists');
+      throw new Error("User with this email or phone already exists");
     }
 
     // Hash password
@@ -34,8 +31,10 @@ export class AuthService {
         firstName: data.firstName,
         lastName: data.lastName,
         role: data.role as UserRole,
-        isActive: false, // Not active until registration fee is paid
-        registrationFeePaid: false,
+        // isActive: false, // Not active until registration fee is paid
+        // registrationFeePaid: false,
+        isActive: true, // Not active until registration fee is paid
+        registrationFeePaid: true,
         joinDate: new Date(),
         wallet: {
           create: {
@@ -77,22 +76,24 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new Error('Invalid credentials');
+      throw new Error("Invalid credentials");
     }
 
     // Check if user is active
-    if (!user.isActive) {
-      throw new Error('Account not activated. Please pay the registration fee.');
-    }
+    // if (!user.isActive) {
+    //   throw new Error(
+    //     "Account not activated. Please pay the registration fee.",
+    //   );
+    // }
 
     // Verify password
     const isPasswordValid = await HashService.comparePassword(
       data.password,
-      user.password
+      user.password,
     );
 
     if (!isPasswordValid) {
-      throw new Error('Invalid credentials');
+      throw new Error("Invalid credentials");
     }
 
     // Update last login
@@ -124,13 +125,13 @@ export class AuthService {
   static async refreshToken(refreshToken: string) {
     try {
       const payload = JwtService.verifyRefreshToken(refreshToken);
-      
+
       const user = await prisma.user.findUnique({
         where: { id: payload.userId },
       });
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
 
       const newTokenPayload = {
@@ -144,7 +145,7 @@ export class AuthService {
 
       return { accessToken, refreshToken: newRefreshToken };
     } catch (error) {
-      throw new Error('Invalid refresh token');
+      throw new Error("Invalid refresh token");
     }
   }
 }
